@@ -73,7 +73,7 @@ resource "aws_route_table" "aft_vpc_private_subnet_02" {
   vpc_id = aws_vpc.aft_vpc.id
   route {
     cidr_block     = "0.0.0.0/0"
-    nat_gateway_id = aws_nat_gateway.aft-vpc-natgw-02.id
+    nat_gateway_id = aws_nat_gateway.aft-vpc-natgw-01.id
   }
   tags = {
     Name = "aft-vpc-private-subnet-02"
@@ -180,9 +180,10 @@ resource "aws_eip" "aft-vpc-natgw-01" {
   vpc = true
 }
 
-resource "aws_eip" "aft-vpc-natgw-02" {
-  vpc = true
-}
+# Cost optimization
+#resource "aws_eip" "aft-vpc-natgw-02" {
+#  vpc = true
+#}
 
 resource "aws_nat_gateway" "aft-vpc-natgw-01" {
   depends_on = [aws_internet_gateway.aft-vpc-igw]
@@ -196,17 +197,17 @@ resource "aws_nat_gateway" "aft-vpc-natgw-01" {
 
 }
 
-resource "aws_nat_gateway" "aft-vpc-natgw-02" {
-  depends_on = [aws_internet_gateway.aft-vpc-igw]
+# resource "aws_nat_gateway" "aft-vpc-natgw-02" {
+#   depends_on = [aws_internet_gateway.aft-vpc-igw]
 
-  allocation_id = aws_eip.aft-vpc-natgw-02.id
-  subnet_id     = aws_subnet.aft_vpc_public_subnet_02.id
+#   allocation_id = aws_eip.aft-vpc-natgw-02.id
+#   subnet_id     = aws_subnet.aft_vpc_public_subnet_02.id
 
-  tags = {
-    Name = "aft-vpc-natgw-02"
-  }
+#   tags = {
+#     Name = "aft-vpc-natgw-02"
+#   }
 
-}
+# }
 
 #########################################
 # VPC Gateway Endpoints
