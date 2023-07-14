@@ -262,7 +262,8 @@ resource "aws_dynamodb_table" "lock-table" {
   provider = aws.primary_region
 
   name             = "aft-backend-${data.aws_caller_identity.current.account_id}"
-  billing_mode     = "PAY_PER_REQUEST"
+  read_capacity  = 1
+  write_capacity = 1
   hash_key         = "LockID"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"

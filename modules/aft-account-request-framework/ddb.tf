@@ -107,8 +107,8 @@ resource "aws_dynamodb_table" "aft_request_audit" {
 # Table that stores the audit history for the account
 resource "aws_dynamodb_table" "aft_controltower_events" {
   name             = "aft-controltower-events"
-  read_capacity    = 5
-  write_capacity   = 5
+  read_capacity    = 1
+  write_capacity   = 1
   hash_key         = "id"
   range_key        = "time"
   stream_enabled   = true
